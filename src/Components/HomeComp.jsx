@@ -12,7 +12,7 @@ import FeaturedHomes from './FeaturedHomes';
 
 
 
-function Home() {
+function HomeComp() {
 
     const settings = {
         dots: true,
@@ -118,4 +118,4 @@ function Home() {
     )
 }
 
-export default Home
+export default HomeComp

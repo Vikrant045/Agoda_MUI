@@ -1,13 +1,17 @@
-import Footer from "./Components/Footer"
-import NavBar from "./Components/NavBar"
-import Home from "./Components/Home"
-function App() {
 
+import { Outlet } from "react-router-dom"
+import MainLayout from "./Components/Layout/MainLayout"
+import NavBar from "./Components/NavBar"
+import Footer from "./Components/Footer"
+
+function App() {
+ 
   return (
     <>
-      <NavBar/>
-      <Home/>
-      <Footer/>
+      {/* <NavBar/> */}
+        <Outlet/>
+      {/* </MainLayout> */}
+      {/* <Footer/> */}
     </>
   )
 }

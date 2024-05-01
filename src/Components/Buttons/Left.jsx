@@ -3,12 +3,13 @@ import React from 'react'
 function Left(props) {
     const { className, style, onClick } = props;
     return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "blue" , padding:"6px",}}
-        onClick={onClick}
+      <img
+          className={className}
+          style={{ ...style, display: "block",   padding: "6px" }}
+          onClick={onClick}
+          src={`https://cdn-icons-png.freepik.com/512/271/271218.png`}
       />
-    );
+  );
 }
 
 export default Left

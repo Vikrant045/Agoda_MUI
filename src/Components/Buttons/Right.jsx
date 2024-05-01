@@ -6,11 +6,10 @@ const Right = (props) => {
     return (
         <img
             className={className}
-            style={{ ...style, display: "block", background: "blue", color: "orange", padding: "6px" }}
+            style={{ ...style, display: "block",   padding: "6px" }}
             onClick={onClick}
             src={`https://cdn-icons-png.freepik.com/256/271/271226.png`}
         />
     );
 }
-
 export default Right

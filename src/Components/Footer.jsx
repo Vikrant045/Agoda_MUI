@@ -3,7 +3,7 @@ import React from 'react'
 
 function Footer() {
   return (
-   <Typography component="div" sx={{display:"block", backgroundColor:"grey.200"}}>
+   <Typography component="div" sx={{display:"block", backgroundColor:"grey.200" ,marginBottom:"0px"}}>
        <Container maxWidth="lg" sx={{marginTop:"100px"}}>
       <Grid container spacing={10}>
              <Grid item  xs={12} md={3} lg={3}>

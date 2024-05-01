@@ -1,38 +1,76 @@
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material'
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar() {
-    const pages = ['Flight + Hotel', 'Hotel & Rooms', 'Transports', 'Activities'];
 
+    const navPages = [
+        {
+            name: "Flight + Hotel",
+            slug: '/'
+        },
+        {
+            name: "Hotel & Rooms",
+            slug: '/'
+        },
+        {
+            name: "Transports",
+            slug: '/'
+        },
+        {
+            name: "Contact Us",
+            slug: '/contact'
+        },
+    ];
+
+    const navigate = useNavigate()
+    const handleClick = () => {
+        console.log(" dash clicked")
+        navigate("/dashboard")
+    }
     return (
-        <AppBar position="fixed" sx={{ backgroundColor: "white" }}>
+        <AppBar position="fixed" sx={{ backgroundColor: "white" ,borderRadius:1,marginLeft:"15px"}}>
             <Toolbar sx={{ display: "flex", justifyContent: "space-evenly", padding: "8px 0px" }}>
-                <Typography variant="h4" color="secondary" sx={{ color: "blue" }}>
-                    Agoda
-                </Typography>
+                <Link to={'/'}>
+                    <Typography variant="h5" color="secondary" sx={{ color: "blue" }}>
+                        Agoda
+                    </Typography>
+                </Link>
                 {
-                    pages.map((page, idx) => {
+                    navPages.map((navItem, idx) => {
                         return (
-                            <Typography variant="h6" key={idx} sx={{ color: "black" }}>
-                                {page}
-                            </Typography>
+                            <Link to={navItem.slug} key={idx}>
+                                <Typography variant="h7" sx={{ color: "black" }} >
+                                    {navItem.name}
+                                </Typography>
+                            </Link>
                         )
                     })
                 }
+                <Link to="/dashboard">
+                    <Typography variant="h7" sx={{ color: "black" }} onClick={handleClick}>
+                        Dashboard
+                    </Typography>
+                </Link>
                 <Button
                     variant="outlined"
                     size='medium'
-                    sx={{ fontSize: "0.9rem", fontWeight: "semibold", }}
+                    sx={{ fontSize: "0.8rem", fontWeight: "semibold", }}
                 >
                     list your Place</Button>
 
-                <Button variant="text">Sign In </Button>
+                <Button
+                 variant="text"                    
+                  onClick={()=> navigate("/signIn")}
+                   >Sign In </Button>
 
                 <Button
                     variant="outlined"
                     size="medium"
-                    sx={{ fontSize: "0.9rem", fontWeight: "semibold",  }}
+                    sx={{ fontSize: "0.8rem", fontWeight: "semibold", }}
+                    onClick={()=> navigate("/signUp")}
+
                 >
                     Create Account</Button>
 

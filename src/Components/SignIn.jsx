@@ -12,6 +12,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate, } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import * as Yup from 'yup'
+import { logIn } from './Store/authSlice';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -31,18 +38,45 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const formik = useFormik({                           // formik
+    initialValues: {
+
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object().shape({
+
+      email: Yup.string().required("Email is required").email("Invalid email"),
+      password: Yup.string().required("Password is required").min(8, "Must be at least 8 characters"),
+    }),
+    onSubmit: async (values) => {
+      const sVals = {
+        username: "mor_231",
+        password: "83r5^_"
+      }
+      try {
+        const res = await axios.post('https://fakestoreapi.com/auth/login', sVals);
+        console.log("res",res)
+        const token = res.data.token; // Extract the token from the response
+        console.log("Token is here :", token);
+        Cookies.set("token", token, { expires: 7 });
+        if (Cookies.get("token")) {
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Error occurred during signIn:", error);
+      }
+    }
+  
+  });
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs" sx={{boxShadow:"2px 2px 5px grey",borderRadius:2}}>
+      <Container component="main" maxWidth="xs" sx={{ boxShadow: "2px 2px 5px grey", borderRadius: 2 }}>
         <CssBaseline />
         <Box
           sx={{
@@ -50,7 +84,7 @@ export default function SignIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginBottom:15
+            marginBottom: 15
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -59,7 +93,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -70,7 +104,11 @@ export default function SignIn() {
               autoComplete="email"
               autoFocus
               size='small'
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
             />
+            {formik.touched.email && formik.errors.email ? <Typography sx={{ color: "red" }}>{formik.errors.email}</Typography> : <></>}
             <TextField
               margin="normal"
               size='small'
@@ -81,7 +119,11 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={formik.values.password}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
             />
+            {formik.touched.password && formik.errors.password ? <Typography sx={{ color: "red" }}>{formik.errors.password}</Typography> : <></>}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -101,7 +143,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="" variant="body2" onClick={() => navigate("/signUp")}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

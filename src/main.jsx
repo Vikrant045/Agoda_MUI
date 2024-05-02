@@ -14,28 +14,31 @@ import Settings from './Pages/admin/Settings.jsx'
 import HomeComp from './Components/HomeComp.jsx'
 import SignIn from './Components/SignIn.jsx'
 import SignUp from './Components/SignUp.jsx'
-
+import { Provider } from 'react-redux'
+import store from './Components/Store/store.js'
+import AuthLayout from './Components/Layout/AuthLayout.jsx'
+import ProtectedRoutes from './Components/ProtectedRoutes.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<AdminLayout />}>
-        <Route path='/dashboard' element={<DashboardPage />} />
-        <Route path='/dashboard/profile' element={<Profile />} />
-        <Route path='/dashboard/setting' element={<Settings/>} />
-        <Route path='/dashboard/allusers' element={<ALL_Users />} />
-        <Route path='/dashboard/contact' element={<Contact />} />
-
-      </Route>  
-
+    <Route element={<ProtectedRoutes />}>
+     <Route element={<AdminLayout />}>
+      
+       
+          <Route path='/dashboard' element={<DashboardPage />} />
+          <Route path='/dashboard/profile' element={<Profile />} />
+          <Route path='/dashboard/setting' element={<Settings />} />
+          <Route path='/dashboard/allusers' element={<ALL_Users />} />
+          <Route path='/dashboard/contact' element={<Contact />} />
+        </Route>
+      </Route>
       <Route element={<MainLayout />}>
         <Route path='/contact' element={<Contact />} />
-        <Route path='/' element={<HomeComp/>} />
-        <Route path='/signIn' element={<SignIn/>} />
-        <Route path='/signUp' element={<SignUp/>} />
-
-
-      </Route>  
+        <Route path='/' element={<HomeComp />} />
+        <Route path='/signIn' element={<SignIn />} />
+        <Route path='/signUp' element={<SignUp />} />
+      </Route>
 
       {/* <Route path='/' element={<App />}>
         <Route path='' element={<Home />} />
@@ -46,7 +49,9 @@ const router = createBrowserRouter(
 )
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
 
-    <RouterProvider router={router} />
   </React.StrictMode>,
 )

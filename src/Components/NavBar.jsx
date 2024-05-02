@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material'
 import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 function NavBar() {
 
     const navPages = [
@@ -23,7 +23,8 @@ function NavBar() {
             slug: '/contact'
         },
     ];
-
+   const Token = Cookies.get("token")
+     console.log("navbar token",Token)
     const navigate = useNavigate()
     const handleClick = () => {
         console.log(" dash clicked")
@@ -48,11 +49,18 @@ function NavBar() {
                         )
                     })
                 }
-                <Link to="/dashboard">
+             
+                {
+                    Token ?    <Link to="/dashboard">
                     <Typography variant="h7" sx={{ color: "black" }} onClick={handleClick}>
                         Dashboard
                     </Typography>
-                </Link>
+                </Link> :    <Button
+                 variant="text"                    
+                  onClick={()=> navigate("/signIn")}
+                   >Sign In </Button>
+                }
+              
                 <Button
                     variant="outlined"
                     size='medium'
@@ -60,10 +68,7 @@ function NavBar() {
                 >
                     list your Place</Button>
 
-                <Button
-                 variant="text"                    
-                  onClick={()=> navigate("/signIn")}
-                   >Sign In </Button>
+             
 
                 <Button
                     variant="outlined"

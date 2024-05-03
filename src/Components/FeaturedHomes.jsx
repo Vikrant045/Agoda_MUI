@@ -86,7 +86,7 @@ function FeaturedHomes() {
     <TabPanel value={0}>
         <Container maxWidth="lg">
         <Typography sx={{fontSize:"25px"}}>Delhi NCR</Typography>
-        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap"  }}>
+        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap" , justifyContent:"center"}}>
           {
              data.map((place,idx)=>{
           return (
@@ -107,7 +107,7 @@ function FeaturedHomes() {
     <Container maxWidth="lg">
        <Typography sx={{fontSize:"25px"}}>Mumbai</Typography>
 
-        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap"  ,width:"100%"}}>
+        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap"  ,width:"100%", justifyContent:"center"}}>
           {
              data.map((place,idx)=>{
           return (
@@ -121,7 +121,7 @@ function FeaturedHomes() {
     <TabPanel value={2}>
     <Container maxWidth="lg">
     <Typography sx={{fontSize:"25px"}}>Banglore</Typography>
-        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap"  ,width:"100%"}}>
+        <Typography component="div" sx={{display:"flex" ,flexWrap: "wrap"  ,width:"100%", justifyContent:"center"}}>
           {
              data.map((place,idx)=>{
           return (
